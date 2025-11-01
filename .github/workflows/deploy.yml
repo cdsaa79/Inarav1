@@ -1,0 +1,35 @@
+name: Deploy to Vercel
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install PNPM
+        run: npm install -g pnpm
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Prisma generate
+        run: pnpm --filter ./apps/web prisma generate
+      - name: Pull Vercel Env
+        run: |
+          npx vercel pull --yes --environment=production \
+            --token=${{ secrets.VERCEL_TOKEN }}
+      - name: Inject environment variables
+        run: |
+          npx vercel env add NEXTAUTH_SECRET production <<< "$${{ secrets.NEXTAUTH_SECRET }}" --token=${{ secrets.VERCEL_TOKEN }}
+          npx vercel env add NEXTAUTH_URL production <<< "$${{ secrets.NEXTAUTH_URL }}" --token=${{ secrets.VERCEL_TOKEN }}
+          npx vercel env add DATABASE_URL production <<< "$${{ secrets.DATABASE_URL }}" --token=${{ secrets.VERCEL_TOKEN }}
+          if [ -n "$${{ secrets.DATABASE_AUTH_TOKEN }}" ]; then
+            npx vercel env add DATABASE_AUTH_TOKEN production <<< "$${{ secrets.DATABASE_AUTH_TOKEN }}" --token=${{ secrets.VERCEL_TOKEN }}
+          fi
+      - name: Build
+        run: pnpm --filter ./apps/web build
+      - name: Deploy (Production)
+        run: npx vercel --prod --token=${{ secrets.VERCEL_TOKEN }}

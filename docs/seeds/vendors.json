@@ -1,0 +1,20 @@
+[
+  {
+    "id": "vendor-az-energy",
+    "name": "AZ Energy Co.",
+    "region": "United Arab Emirates",
+    "contactEmail": "info@azenergy.example",
+    "website": "https://azenergy.example",
+    "certification": "ISO 9001",
+    "verified": true
+  },
+  {
+    "id": "vendor-waterworks",
+    "name": "WaterWorks Solutions",
+    "region": "Middle East",
+    "contactEmail": "sales@waterworks.example",
+    "website": "https://waterworks.example",
+    "certification": "LEED Gold",
+    "verified": false
+  }
+]

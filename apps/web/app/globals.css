@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+ * Global styles for the INARA web app.
+ *
+ * Basic typography and background colours are defined here.  Tailwind
+ * utilities handle the majority of styling on individual components.
+ */
+body {
+  @apply bg-gray-50 text-gray-900;
+}

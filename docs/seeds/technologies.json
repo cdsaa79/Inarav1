@@ -1,0 +1,40 @@
+[
+  {
+    "id": "tech-energy-1",
+    "name": "High Efficiency Solar Panels",
+    "category": "Energy",
+    "type": "Hardware",
+    "shortDesc": "Rooftop photovoltaic panels with 22% efficiency.",
+    "longDesc": "Cutting‑edge solar panels that deliver higher energy yield per square metre. Ideal for commercial rooftops.",
+    "capexMin": 50000,
+    "capexMax": 80000,
+    "opexMin": 500,
+    "opexMax": 800,
+    "paybackYears": 5,
+    "benefitEnergyPct": 0.3,
+    "benefitWaterPct": 0.0,
+    "benefitWastePct": 0.0,
+    "benefitCo2Tpy": 10,
+    "tags": "solar,PV,renewable",
+    "vendors": ["vendor-az-energy"]
+  },
+  {
+    "id": "tech-water-1",
+    "name": "Rainwater Harvesting System",
+    "category": "Water",
+    "type": "Process",
+    "shortDesc": "Collect and reuse rainwater for non‑potable applications.",
+    "longDesc": "An integrated rainwater collection, filtration and storage solution suitable for small to medium industrial facilities.",
+    "capexMin": 20000,
+    "capexMax": 35000,
+    "opexMin": 300,
+    "opexMax": 600,
+    "paybackYears": 4,
+    "benefitEnergyPct": 0.05,
+    "benefitWaterPct": 0.4,
+    "benefitWastePct": 0.0,
+    "benefitCo2Tpy": 2,
+    "tags": "water,harvesting,conservation",
+    "vendors": ["vendor-waterworks"]
+  }
+]

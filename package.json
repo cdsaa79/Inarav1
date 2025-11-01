@@ -1,0 +1,11 @@
+{
+  "name": "inara",
+  "private": true,
+  "workspaces": ["apps/web"],
+  "scripts": {
+    "dev": "pnpm --filter ./apps/web dev",
+    "build": "pnpm --filter ./apps/web build",
+    "seed": "pnpm --filter ./apps/web prisma db seed",
+    "prisma": "pnpm --filter ./apps/web prisma"
+  }
+}

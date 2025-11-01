@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "builds": [
+    { "src": "apps/web/next.config.mjs", "use": "@vercel/next" }
+  ],
+  "framework": "nextjs",
+  "env": {
+    "NEXTAUTH_URL": "@nextauth_url",
+    "NEXTAUTH_SECRET": "@nextauth_secret",
+    "DATABASE_URL": "@database_url",
+    "DATABASE_AUTH_TOKEN": "@database_auth_token",
+    "FREE_DAILY_PROJECTS": "1",
+    "ROTATION_SEED": "50"
+  }
+}

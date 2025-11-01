@@ -1,0 +1,125 @@
+// Prisma schema for INARA MVP 2.2.
+//
+// The datasource is configured to use SQLite by default.  When
+// deploying to Vercel, configure DATABASE_URL to point at Turso
+// (libSQL) or Neon Postgres.  The models reflect the PRD:
+// users, technologies, vendors, projects, simulations, rotations and
+// pivot tables.  A boolean `approved` flag on Technology controls
+// whether the listing is visible to consumers; providers add
+// technologies that require admin approval before publication.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String     @id @default(cuid())
+  email     String     @unique
+  name      String?
+  role      Role       @default(CONSUMER)
+  password  String
+  createdAt DateTime   @default(now())
+  projects  Project[]
+  simulations Simulation[]
+}
+
+enum Role {
+  GUEST
+  CONSUMER
+  PROVIDER
+  ADMIN
+}
+
+model Technology {
+  id               String            @id @default(cuid())
+  name             String
+  category         String
+  type             String
+  shortDesc        String?
+  longDesc         String?
+  capexMin         Float?
+  capexMax         Float?
+  opexMin          Float?
+  opexMax          Float?
+  paybackYears     Float?
+  benefitEnergyPct Float?
+  benefitWaterPct  Float?
+  benefitWastePct  Float?
+  benefitCo2Tpy    Float?
+  tags             String?
+  approved         Boolean          @default(false)
+  createdAt        DateTime         @default(now())
+  Vendors          TechnologyVendor[]
+  simulations      Simulation[]
+  featuredEntries  FeaturedRotation[]
+}
+
+model Vendor {
+  id            String             @id @default(cuid())
+  name          String
+  region        String?
+  contactEmail  String?
+  website       String?
+  certification String?
+  verified      Boolean            @default(false)
+  createdAt     DateTime           @default(now())
+  technologies  TechnologyVendor[]
+}
+
+// Pivot table linking technologies to vendors.
+model TechnologyVendor {
+  id           String     @id @default(cuid())
+  technologyId String
+  vendorId     String
+  Technology   Technology @relation(fields: [technologyId], references: [id])
+  Vendor       Vendor     @relation(fields: [vendorId], references: [id])
+}
+
+model Project {
+  id                 String        @id @default(cuid())
+  userId             String
+  name               String
+  industry           String?
+  location           String?
+  baselineEnergyKwh  Float?
+  baselineWaterM3    Float?
+  baselineWasteTpy   Float?
+  annualBudgetUsd    Float?
+  createdAt          DateTime      @default(now())
+  user               User          @relation(fields: [userId], references: [id])
+  simulations        Simulation[]
+}
+
+model Simulation {
+  id                 String     @id @default(cuid())
+  userId             String
+  projectId          String
+  technologyId       String
+  baselineEnergyKwh  Float?
+  baselineWaterM3    Float?
+  baselineWasteTpy   Float?
+  annualBudgetUsd    Float?
+  paramsJson         String?
+  annualSavingsUsd   Float?
+  roiPct             Float?
+  paybackYears       Float?
+  co2ReductionTpy    Float?
+  confidencePct      Float?
+  createdAt          DateTime   @default(now())
+  user               User        @relation(fields: [userId], references: [id])
+  project            Project     @relation(fields: [projectId], references: [id])
+  technology         Technology  @relation(fields: [technologyId], references: [id])
+}
+
+model FeaturedRotation {
+  id           String     @id @default(cuid())
+  technologyId String
+  startDate    DateTime
+  endDate      DateTime
+  technology   Technology @relation(fields: [technologyId], references: [id])
+}
