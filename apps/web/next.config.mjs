@@ -8,9 +8,9 @@
  * settings accordingly.
  */
 const nextConfig = {
-  experimental: {
-    appDir: true,
-  },
+  // With Next.js 13+ the app directory is enabled by default,
+  // so the experimental.appDir option is no longer necessary.
+  // Additional Next.js configuration options can be added here as needed.
 };
 
 export default nextConfig;
