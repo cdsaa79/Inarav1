@@ -49,9 +49,10 @@ export const authOptions: NextAuthOptions = {
     },
     async session({ session, token }) {
       if (token) {
-        // @ts-ignore
+        // Persist the custom claims on the session.  Our module augmentation
+        // ensures that `id` and `role` are recognised properties on
+        // `session.user`, so no TypeScript ignore directives are needed.
         session.user.id = token.id as string;
-        // @ts-ignore
         session.user.role = token.role as string;
       }
       return session;
