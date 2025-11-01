@@ -10,7 +10,9 @@
     "seed": "prisma db seed"
   },
   "dependencies": {
-    "next": "14.0.0",
+    // Downgrade Next.js to a compatible 13.x version since next-auth 4.x does not
+    // yet support Next 14. Using 13.5.x satisfies the peer dependency requirement.
+    "next": "13.5.6",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "tailwindcss": "3.3.5",
@@ -26,7 +28,8 @@
   "devDependencies": {
     "typescript": "5.1.6",
     "eslint": "8.30.0",
-    "eslint-config-next": "14.0.0",
+    // Align eslint-config-next with the Next.js version to avoid peer conflicts.
+    "eslint-config-next": "13.5.6",
     "@types/react": "18.0.26",
     "@types/node": "18.7.18"
   }
