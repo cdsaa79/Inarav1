@@ -1,8 +1,10 @@
 {
   "version": 2,
   "builds": [
-    { "src": "apps/web/next.config.mjs", "use": "@vercel/next" }
+    {
+      "src": "apps/web/next.config.mjs",
+      "use": "@vercel/next"
+    }
   ],
-  "framework": "nextjs",
-  
+  "framework": "nextjs"
 }
