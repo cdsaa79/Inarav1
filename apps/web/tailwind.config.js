@@ -6,7 +6,14 @@
  * theme to reflect INARA's visual identity.  See the Tailwind docs for
  * details: https://tailwindcss.com/docs/configuration.
  */
-module.exports = {
+/**
+ * Tailwind CSS configuration in ECMAScript module format.
+ *
+ * Since the project uses ESM (type: "module"), we export the config using
+ * `export default` instead of CommonJS `module.exports`. This avoids the
+ * "module is not defined" error during the Next.js build.
+ */
+export default {
   content: [
     './app/**/*.{js,ts,jsx,tsx}',
     './components/**/*.{js,ts,jsx,tsx}',

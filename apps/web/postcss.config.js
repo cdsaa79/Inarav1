@@ -5,7 +5,14 @@
  * vendor prefixes are added where necessary to maximise browser
  * compatibility.
  */
-module.exports = {
+/**
+ * PostCSS configuration in ECMAScript module format.
+ *
+ * Next.js treats .js files as ES modules when the project sets
+ * "type": "module" in package.json. To avoid the "module is not defined"
+ * error at build time, we export the configuration using `export default`.
+ */
+export default {
   plugins: {
     tailwindcss: {},
     autoprefixer: {},
